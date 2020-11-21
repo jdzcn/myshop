@@ -6,24 +6,6 @@ include "conn.php";
 ?>
 <form action="" method="get"> 
 <ul>
-
-<!-- <li>
-<select name="month"> 
-<option value =0>全年</option> 
-<option value ="01">01</option> 
-<option value ="02">02</option> 
-<option value ="03">03</option> 
-<option value ="04">04</option> 
-<option value ="05">05</option> 
-<option value ="06">06</option> 
-<option value ="07">07</option> 
-<option value ="08">08</option> 
-<option value ="09">09</option> 
-<option value ="10">10</option> 
-<option value ="11">11</option> 
-<option value ="12">12</option> 
-</select>
-</li> -->
 <li><input type="date" name="sdate" value="<?php echo date("Y-m-d"); ?>"></li>
 <li><input type="date" name="edate" value="<?php echo date("Y-m-d"); ?>"></li>
 
@@ -45,7 +27,7 @@ include "conn.php";
 <?php
     $q = isset($_GET['remark'])? htmlspecialchars($_GET['remark']) : '';
     $mxsql='select pname as one,number as two,amount as three from orders,products where orders.pid=products.pid and';
-    $datestr=" odate>='".$_GET['sdate']."' and odate<='".$_GET['edate']."'";
+    $datestr=" odate>='".($_GET['sdate']?$_GET['sdate']:date("Y-m-d"))."' and odate<='".($_GET['edate']?$_GET['edate']:date("Y-m-d"))."'";
     $sqlstr[0]=$mxsql.$datestr;
     $sqlstr[1]='select pname as one,sum(number) as two,sum(amount) as three ,sum(amount-cost) as four from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by four ';
     $sqlstr[2]='select odate as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by odate order by odate ';
@@ -53,9 +35,9 @@ include "conn.php";
     if($q) 
     $sql=$mxsql." remark like '%".$q."%'";
     else
-    $sql=$sqlstr[$_GET['style']];
+    $sql=$sqlstr[$_GET['style']?$_GET['style']:0];
 
-    echo $sql.'<hr>';
+    // echo $sql.'<hr>';
     // $sql = "SELECT * FROM products order by pid desc limit 5";
     $result = mysqli_query($conn, $sql);
      
