@@ -6,17 +6,17 @@ include "conn.php";
 ?>
 <form action="" method="get"> 
 <ul>
-<li><input type="date" name="sdate" value="<?php echo date("Y-m-d"); ?>"></li>
+<li><input type="date" name="sdate" value="<?php echo date("Y-m-01"); ?>"></li>
 <li><input type="date" name="edate" value="<?php echo date("Y-m-d"); ?>"></li>
 
 <li>
 <select name="style" > 
 
-<option value=0>明细表</option>
+<option value=0>月汇总表</option>
 <!-- <option value=3>自产汇总表</option> -->
 <option value=1>商品汇总表</option>
 <option value =2>日汇总表</option> 
-<option value =3>月汇总表</option> 
+<option value =3>明细表</option> 
 </select> 
 </li>
 
@@ -27,11 +27,11 @@ include "conn.php";
 <?php
     $q = isset($_GET['remark'])? htmlspecialchars($_GET['remark']) : '';
     $mxsql='select pname as one,number as two,amount as three from orders,products where orders.pid=products.pid and';
-    $datestr=" odate>='".($_GET['sdate']?$_GET['sdate']:date("Y-m-d"))."' and odate<='".($_GET['edate']?$_GET['edate']:date("Y-m-d"))."'";
-    $sqlstr[0]=$mxsql.$datestr;
-    $sqlstr[1]='select pname as one,sum(number) as two,sum(amount) as three ,sum(amount-cost) as four from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by four ';
-    $sqlstr[2]='select odate as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by odate order by odate ';
-    $sqlstr[3]='select substr(odate,1,7) as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by substr(odate,1,7)';
+    $datestr=" odate>='".($_GET['sdate']?$_GET['sdate']:date("Y-m-01"))."' and odate<='".($_GET['edate']?$_GET['edate']:date("Y-m-d"))."'";
+    $sqlstr[3]=$mxsql.$datestr.' order by oid desc ';
+    $sqlstr[1]='select pname as one,sum(number) as two,sum(amount) as three ,sum(amount-cost) as four from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by four desc';
+    $sqlstr[2]='select odate as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by odate order by odate desc';
+    $sqlstr[0]='select substr(odate,1,7) as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by substr(odate,1,7)';
     if($q) 
     $sql=$mxsql." remark like '%".$q."%'";
     else

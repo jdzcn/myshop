@@ -21,7 +21,7 @@ include "conn.php";
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     }
-    $sql = "SELECT * FROM products order by pid desc limit 5";
+    $sql = "SELECT * FROM products order by pid desc";
     $result = mysqli_query($conn, $sql);
      
     if (mysqli_num_rows($result) > 0) {
