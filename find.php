@@ -43,7 +43,7 @@ include "conn.php";
      
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
-            echo "<div style='text-align:left;'>".$row["one"]."</div><div>".$row['two']."</div><div>".$row["three"]."</div><div>".$row["four"]."</div><hr>";
+            echo "<div style='text-align:left;'>".$row["one"]."</div><div>".$row['two']."</div><div>".$row["three"]."</div><div style='color:green'>".$row["four"]."</div><hr>";
         }
     } else {
         echo "empty.";
