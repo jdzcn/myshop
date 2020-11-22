@@ -26,7 +26,7 @@ include "conn.php";
 </form>
 <?php
     $q = isset($_GET['remark'])? htmlspecialchars($_GET['remark']) : '';
-    $mxsql='select odate as one,pname as two,number as three,amount as four from orders,products where orders.pid=products.pid and';
+    $mxsql='select *,(amount-cost) as four from orders,products where orders.pid=products.pid and';
     $datestr=" odate>='".($_GET['sdate']?$_GET['sdate']:date("Y-m-01"))."' and odate<='".($_GET['edate']?$_GET['edate']:date("Y-m-d"))."'";
     $sqlstr[3]=$mxsql.$datestr.' order by odate desc ';
     $sqlstr[1]='select pname as one,sum(number) as two,sum(amount) as three ,sum(amount-cost) as four from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by four desc';
@@ -43,7 +43,10 @@ include "conn.php";
      
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
+            if(($_GET['style']<3)&&(!$q))
             echo "<div style='text-align:left;'>".$row["one"]."</div><div>".$row['two']."</div><div>".$row["three"]."</div><div style='color:green'>".$row["four"]."</div><hr>";
+            else
+            include 'list.php';
         }
     } else {
         echo "empty.";
