@@ -49,15 +49,13 @@ if (mysqli_num_rows($result) > 0) {
 
 </form>
 <?php
-    $sql = "SELECT pname,number,amount,cost FROM orders,products where products.pid=orders.pid order by oid desc limit 5";
+    $sql = "SELECT *,(amount-cost) as four FROM orders,products where products.pid=orders.pid order by oid desc limit 5";
     $result = mysqli_query($conn, $sql);
      
     if (mysqli_num_rows($result) > 0) {
         // 输出数据
         while($row = mysqli_fetch_assoc($result)) {
-            // $txt = sprintf("%s                %u        %u",$row["pname"],$row["number"],$row["amount"]);
-            echo $row["pname"]."<span style='float:right'>".$row["amount"]."</span><hr>";
-            echo $txt;
+            echo "<div style='width:100%;text-align:left;color:gray;font-size:0.9em;'>".$row['odate']."</div><div style='text-align:left;width:30%;font-weight:bold'>".$row["pname"]."</div><div style='width:20%'>".$row['number']."</div><div>".$row["amount"]."</div><div style='color:green'>".$row["four"]."</div><hr>";
         }
     } else {
         echo "empty.";

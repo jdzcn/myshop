@@ -59,7 +59,11 @@ h1{
 }
 */
 
-
+div	{
+	display: inline-block;
+	width: 25%;
+	text-align: right;
+}
 form Ul {
 
 	margin:0px;
