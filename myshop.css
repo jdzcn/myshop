@@ -46,23 +46,27 @@ h1{
 	color:white;
 	padding:10px 8px;
 	margin:0 6px 6px 6px;
-	text-align:center; */
+	text-align:center; 
 	
-	/*
+	
 	font-size:0.9em;
 	padding:4px;
 	background:#333333;
 	color:#AAAAAA;
 	border-bottom:2px solid #AAAAAA;
 	margin:0 0 4px 0;
-	*/
+	
 }
+*/
+
+
 form Ul {
 
 	margin:0px;
 	padding:6px;
-	list-style-type:none:
+	list-style-type:none;
 }
+
 form ul li {
 	margin:0 0 4px 0;
 	-webkit-border-radius:4px;
