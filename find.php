@@ -29,9 +29,9 @@ include "conn.php";
     $mxsql='select pname as one,number as two,amount as three from orders,products where orders.pid=products.pid and';
     $datestr=" odate>='".($_GET['sdate']?$_GET['sdate']:date("Y-m-01"))."' and odate<='".($_GET['edate']?$_GET['edate']:date("Y-m-d"))."'";
     $sqlstr[3]=$mxsql.$datestr.' order by oid desc ';
-    $sqlstr[1]='select pname as one,sum(number) as two,sum(amount) as three ,sum(amount-cost) as four from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by four desc';
-    $sqlstr[2]='select odate as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by odate order by odate desc';
-    $sqlstr[0]='select substr(odate,1,7) as one,sum(number) as two,sum(amount) as three,sum(amount-cost) as four from orders where'.$datestr.' group by substr(odate,1,7)';
+    $sqlstr[1]='select pname as one,sum(amount) as two ,sum(amount-cost) as three from orders,products where orders.pid=products.pid and'.$datestr.' group by orders.pid order by three desc';
+    $sqlstr[2]='select odate as one,sum(amount) as two,sum(amount-cost) as three from orders where'.$datestr.' group by odate order by odate desc';
+    $sqlstr[0]='select substr(odate,1,7) as one,sum(amount) as two,sum(amount-cost) as three from orders where'.$datestr.' group by substr(odate,1,7) order by substr(odate,1,7) desc';
     if($q) 
     $sql=$mxsql." remark like '%".$q."%'";
     else
@@ -43,7 +43,7 @@ include "conn.php";
      
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
-            echo $row["one"]."<span style='float:right'>".$row["three"]."</span><hr>";
+            echo $row["one"]."<span style='float:center'>".$row['two']."</span>"."<span style='float:right'>".$row["three"]."</span><hr>";
         }
     } else {
         echo "empty.";
