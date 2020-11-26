@@ -2,6 +2,7 @@
 
 <?php
 include "nav.php";
+include "test.php";
 include "conn.php";
 ?>
 <form action="" method="get"> 

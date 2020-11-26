@@ -2,6 +2,7 @@
 
 <?php
 include "nav.php";
+include "test.php";
 ?>
 <form id="add" action="add.php">
 <ul>

@@ -12,5 +12,5 @@
   <a href="index.php">销售</a>
   <a href="products.php">商品</a>
   <a href="find.php">查询</a>
-  <!-- <a href="system.php" style="float:right">系统</a> -->
+  <a href="system.php" style="float:right">系统</a>
 </nav>
